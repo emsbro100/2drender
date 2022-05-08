@@ -136,12 +136,13 @@ void circle(int x = -1, int y = -1, double radius = -1) {
   point(x, y + radius);
 
   int i = 0;
-  while(true) {
-    //IDEA FOR GUESSING: if the slope is more horizontal then check the coordinates for to the side one and to the side and up/down one, then plug in the radius to see which point is closer and continue moving in a circle! should work flawlessly :) 
-    //start by sending the slope and quarter, the quarters will be the quarters of the circle with 1 starting in the top above in a cone shape and them continuing clockwise
-    //default quarter will be 1, points will be drawn clockwise starting at the point directly above the center
+  bool circleDrawing = true;
+  while(circleDrawing) {
+    //point plotting checks whether the slope is above/below 1.0 and whether its negative to determine the current direction a circle is being drawn
+    //it uses a slightly different guessing algorithm depending on which direction its being drawn to choose where the next point is going to be drawn
+    //circles are always drawn clockwise starting at the top center point
     if ((previousX == (x - 1)) && ((previousY - y) > 0)) {
-      break;
+      circleDrawing = false;
     }
     else {
       if (previousX == x) {
@@ -316,12 +317,3 @@ int main() {
   circle();
   display();
 }
-
-//goals
-//make program load config from external file DONE
-//make display function load points from list DONE
-//make line function generate points to form a line DONE
-//make a circle function to accurately generate scalable circles DONE
-//make the program work entirely from the CLI: add commands such as config, list, and display
-
-//final goal: optimize code
